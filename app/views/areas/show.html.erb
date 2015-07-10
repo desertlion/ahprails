@@ -1,0 +1,11 @@
+<% if notice %>
+<p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @area.name %>
+</p>
+
+<%= link_to 'Edit', edit_area_path(@area), class: 'btn btn-mini btn-primary' %> |
+<%= link_to 'Back', areas_path, class: 'btn btn-mini btn-primary'%>

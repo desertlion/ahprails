@@ -1,0 +1,38 @@
+<% if (notice) %>
+<p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
+
+<h1>Listing Subcriteria</h1>
+
+<table class="table table-condensed table-bordered table-striped"">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Criteria</th>
+      <th>Data Type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subcriteria.each do |subcriterium| %>
+      <tr>
+        <td><%= subcriterium.name %></td>
+        <td><%= subcriterium.criterium.name %></td>
+      <td><%= (subcriterium.tipe) ? 'structured' : 'unstructured' %></td>
+        <td>
+            <div class="btn-group">
+                <%= link_to 'Show', criterium_subcriterium_path(criteria_id: @criteria_id, id: subcriterium.id), class: 'btn btn-default' %>
+                <%= link_to 'Edit', edit_criterium_subcriterium_path(id: subcriterium.id), class: 'btn btn-primary' %>
+                <%= link_to 'Destroy', criterium_subcriterium_path(criteria_id: @criteria_id, id: subcriterium.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subcriterium', new_criterium_subcriterium_path(@criterium_id), class: 'btn btn-primary btn-block' %>
+<%= link_to 'Back to Criterium', criteria_path, class: 'btn btn-primary btn-block' %>

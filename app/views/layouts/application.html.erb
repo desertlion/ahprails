@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AHPRails</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="container">
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="javascript:void(0)">AHP App</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            <li class="<%= params[:controller] == 'areas' ? 'active' : '' %>"><%= link_to 'Areas', areas_path %></li>
+            <li class="<%= params[:controller] == 'plants' ? 'active' : '' %>"><%= link_to 'Plants', plants_path %></li>
+            <li class="<%= params[:controller] == 'criteria' ? 'active' : '' %>"><%= link_to 'Criteria', criteria_path %></li>
+            <li class="<%= params[:controller] == 'unstructured_data' ? 'active' : '' %>"><%= link_to 'Unstructured Data', unstructured_data_path %></li>
+            <li class="<%= params[:controller] == 'ahp' ? 'active' : '' %>"><%= link_to 'Ahp', ahp_criteria_path %></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control col-lg-8" placeholder="Search">
+          </form>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <%= yield %>
+        <%= debug(params) if Rails.env.development? %>
+      </div>
+    </div>
+  </body>
+</html>

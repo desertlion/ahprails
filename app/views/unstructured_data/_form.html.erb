@@ -1,0 +1,26 @@
+<%= form_for(@unstructured_datum) do |f| %>
+  <% if @unstructured_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@unstructured_datum.errors.count, "error") %> prohibited this unstructured_datum from being saved:</h2>
+
+      <ul>
+      <% @unstructured_datum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :subcriterium_id %><br>
+      <%= collection_select(:unstructured_datum, :subcriterium_id, Subcriterium.where(tipe: false), :id, :name) %>
+    <%#= f.text_field :subcriterium_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-block btn-primary' %>
+  </div>
+<% end %>

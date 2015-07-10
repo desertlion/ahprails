@@ -1,0 +1,33 @@
+<h2>Unstructured Data AHP Calculation</h2>
+<%= form_tag(unstructured_data_ahpcalculate_path) do |f|  %>
+    <% @subcriteria.each_with_index do |subcriteria, subindex| %>
+    <hr>
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <% subcriteria.unstructured_data.each do |ud| %>
+                <th><%= ud.name %></th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <% subcriteria.unstructured_data.each_with_index do |baris, index| %>
+            <tr>
+                <td><%= baris.name %></td>
+                <% subcriteria.unstructured_data.each_with_index do |kolom, idx| %>
+                    <% if index == idx %>
+                    <td>1</td>
+                    <% elsif index < idx %>
+                    <td><input type="text" style="width: 50px" name="ud[<%=baris.id%>][<%=kolom.id%>]" value="2"></td>
+                    <% else %>
+                    <td></td>
+                    <% end %>
+                <% end %>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <% end %>
+    <button class="btn btn-block btn-primary">Calculate Weight</button>
+<% end %>

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Criteria:</strong>
+  <%= @subcriterium.criterium.name %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @subcriterium.name %>
+</p>
+
+<%= link_to 'Edit', edit_criterium_subcriterium_path(@subcriterium, id: @subcriterium.id), class: 'btn btn-block btn-primary' %>
+<%= link_to 'Back', criterium_subcriteria_path(@subcriterium), class: 'btn btn-block btn-default' %>

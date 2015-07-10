@@ -1,0 +1,131 @@
+<h1>AHP Criteria Calculation</h1>
+
+<table class="table table-condensed table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Kriteria</th>
+      <% @Criteria.each do |criterium| %>
+      <th><%= criterium.name %></th>
+      <% end %>
+      <th>Akar Pk3</th>
+      <th>Bobot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for baris in 0..@jlhkriteria %>
+    <tr>
+      <td><%= @Criteria[baris].name %></td>
+      <% for kolom in 0..@jlhkriteria %>
+      <td>
+        <% if @Criteria[baris].name == @Criteria[kolom].name %>
+            1
+        <% else %>
+        <%= @criteria[baris][kolom] %>
+        <% end %>
+      </td>
+      <% end %>
+      <td><%= @sqrt3[baris]%></td>
+      <td><%= @bobot[baris]%></td>
+    </tr>
+    <% end %>
+</tbody>
+<tfooter>
+    <tr>
+        <th>Sum</th>
+        <% for kolom in 0..@jlhkriteria %>
+            <td><%= @sum[kolom] %></td>
+        <% end %>
+        <td><%= @sumSqrt3 %></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Sum*pv</th>
+        <% for kolom in 0..@jlhkriteria %>
+            <td><%= @sum[kolom]*@bobot[kolom] %></td>
+        <% end %>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Lamdamax</th>
+        <td><%= @lambda %></td>
+    </tr>
+    <tr>
+        <th>CI</th>
+        <td><%= @ci %></td>
+    </tr>
+    <tr>
+        <th>CR</th>
+        <td><%= @cr %></td>
+    </tr>
+</tfooter>
+</table>
+<div class="alert alert-info text-center">
+    <p>Data Konsisten</p>
+</div>
+
+<h2>AHP SubCriteria Calculation</h2>
+<% @Criteria.each do |kriteria| %>
+    <% if kriteria.subcriteria.length > 0 %>
+    <h3>AHP Sub Criteria Calculation for "<%= kriteria.name %>"</h3>
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>SubKriteria</th>
+            <% kriteria.subcriteria.each do |sub| %>
+                <th><%= sub.name %></th>
+            <% end %>
+            <th>Akar Pk3</th>
+            <th>Bobot</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% kriteria.subcriteria.each_with_index do |baris, index| %>
+                <tr>
+                    <td><%= baris.name %></td>
+                    <% kriteria.subcriteria.each_with_index do |kolom, idx| %>
+                        <% if baris.id == kolom.id %>
+                        <td>1</td>
+                        <% else %>
+                        <td><%= @subcriteria[kriteria.id][:nilai]["#{index}#{idx}"] %></td>
+                        <% end %>
+                    <% end %>
+                    <td><%= @subcriteria[kriteria.id][:subsqrt3][index] %></td>
+                    <td><%= @subcriteria[kriteria.id][:subbobot][index] %></td>
+                </tr>
+            <% end %>
+        </tbody>
+        <tfooter>
+        <tr>
+            <th>Sum</th>
+            <% for kolom in 0..kriteria.subcriteria.length-1 %>
+            <td><%= @subcriteria[kriteria.id][:subsum][kolom] %></td>
+            <% end %>
+            <td><%= @subcriteria[kriteria.id][:subsumSqrt3] %></td>
+            <td><%= @subcriteria[kriteria.id][:subsumbobot] %></td>
+        </tr>
+        <tr>
+            <th>Sum*pv</th>
+            <% for kolom in 0..kriteria.subcriteria.length-1 %>
+                <td><%= @subcriteria[kriteria.id][:subsum][kolom]*@subcriteria[kriteria.id][:subbobot][kolom] %></td>
+            <% end %>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Lamdamax</th>
+            <td><%= @lambda %></td>
+        </tr>
+        <tr>
+            <th>CI</th>
+            <td><%= @ci %></td>
+        </tr>
+        <tr>
+            <th>CR</th>
+            <td><%= @cr %></td>
+        </tr>
+    </tfooter>
+    </table>
+    <% end %>
+<% end %>
+<a href="" class="btn btn-primary btn-block">Hitung SubCriteria &raquo;</a>

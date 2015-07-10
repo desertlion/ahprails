@@ -1,0 +1,15 @@
+<% if notice %>
+<p id="notice" class="alert alert-success"><%= notice %></p>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @plant.name %>
+</p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @plant.profile %>
+</p>
+
+<%= link_to 'Edit', edit_plant_path(@plant), class: 'btn btn-primary' %> |
+<%= link_to 'Back', plants_path, class: 'btn btn-primary' %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @unstructured_datum.name %>
+</p>
+
+<p>
+  <strong>Subcriterium:</strong>
+  <%= @unstructured_datum.subcriterium %>
+</p>
+
+<%= link_to 'Edit', edit_unstructured_datum_path(@unstructured_datum) %> |
+<%= link_to 'Back', unstructured_data_path %>

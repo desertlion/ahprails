@@ -1,0 +1,68 @@
+<h1>AHP Criteria Calculation</h1>
+
+<%= form_tag(ahp_calculate_path) do |f|  %>
+    <table class="table table-condensed table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Kriteria</th>
+          <% @criteria.each do |criterium| %>
+          <th><%= criterium.name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% for baris in 0..@jumlah %>
+        <tr>
+          <td><%= @criteria[baris].name %></td>
+          <% for kolom in 0..@jumlah %>
+          <td align="right"">
+            <% if @criteria[baris].name == @criteria[kolom].name %>
+                1
+            <% elsif baris < kolom %>
+                <input type="text"  name="<%= "criteria[#{baris}][#{kolom}]" %>" value="2">
+            <% end %>
+          </td>
+          <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+    </table>
+    <hr>
+    <h2>AHP Sub Criteria Calculation</h2>
+    <%
+    @criteria.each do |criterium|
+        if ( criterium.subcriteria.length > 0 ) %>
+        <h3><%= criterium.name %></h3>
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Sub Criteria</th>
+                    <% criterium.subcriteria.each do |subcriteria| %>
+                    <th><%= subcriteria.name %></th>
+                    <% end %>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+            criterium.subcriteria.each_with_index do |subcriteria, index| %>
+                <tr>
+                    <td><%= subcriteria.name %></td>
+                    <% criterium.subcriteria.each_with_index do |kolom, idx| %>
+                    <td>
+                        <% if subcriteria.name == kolom.name %> 1
+                        <% elsif index < idx %>
+                            <input type="text"  name="<%= "subcriteria[#{subcriteria.id}][#{kolom.id}]" %>" value="2">
+                        <% end %>
+                    </td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+        <%
+        end
+    end
+    %>
+    <button class="btn btn-block btn-primary">Calculate Weight</button>
+<% end %>

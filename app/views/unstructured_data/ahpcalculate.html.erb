@@ -1,0 +1,65 @@
+<h2>AHP Unstructured Data Calculation</h2>
+<% @subcriteria.each do |sub| %>
+    <% if sub.unstructured_data.length > 0 %>
+    <h3>AHP Unstructured Data Calculation for "<%= sub.name %>"</h3>
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <% sub.unstructured_data.each do |ud| %>
+            <th><%= ud.name %></th>
+            <% end %>
+            <th>Akar Pk3</th>
+            <th>Bobot</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% sub.unstructured_data.each_with_index do |baris, index| %>
+                <tr>
+                    <td><%= baris.name %></td>
+                    <% sub.unstructured_data.each_with_index do |kolom, idx| %>
+                        <% if baris.id == kolom.id %>
+                        <td>1</td>
+                        <% else %>
+                        <td><%= @UD[sub.id][:nilai]["#{index}#{idx}"] %></td>
+                        <% end %>
+                    <% end %>
+                    <td><%= @UD[sub.id][:sqrt3][index] %></td>
+                    <td><%= @UD[sub.id][:bobot][index] %></td>
+                </tr>
+            <% end %>
+        </tbody>
+        <tfooter>
+        <tr>
+            <th>Sum</th>
+            <% for kolom in 0..sub.unstructured_data.length-1 %>
+            <td><%= @UD[sub.id][:sum][kolom] %></td>
+            <% end %>
+            <td><%= @UD[sub.id][:sumSqrt3] %></td>
+            <td><%= @UD[sub.id][:sumbobot] %></td>
+        </tr>
+        <tr>
+            <th>Sum*pv</th>
+            <% for kolom in 0..sub.unstructured_data.length-1 %>
+                <td><%= @UD[sub.id][:sum][kolom]*@UD[sub.id][:bobot][kolom] %></td>
+            <% end %>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Lamdamax</th>
+            <td><%= @lambda %></td>
+        </tr>
+        <tr>
+            <th>CI</th>
+            <td><%= @ci %></td>
+        </tr>
+        <tr>
+            <th>CR</th>
+            <td><%= @cr %></td>
+        </tr>
+    </tfooter>
+    </table>
+    <% end %>
+<% end %>
+<a href="" class="btn btn-primary btn-block">Hitung SubCriteria &raquo;</a>
