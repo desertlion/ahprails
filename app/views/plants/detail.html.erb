@@ -1,0 +1,14 @@
+<h3>Detail tanaman <%= @plant.name %></h3>
+<hr>
+<%= form_tag(plant_save_detail_path) do |f|  %>
+    <% @details.each do |detail| %>
+    <div class="form-group">
+        <label><%= detail[:name] %></label>
+        <input type="text" 
+            name="detail[<%=detail[:tipe]%>][<%=detail[:id]%>]" 
+            value="<%= detail[:value] %>" 
+            class="form-control" />
+    </div>
+    <% end %>
+    <button class="btn btn-block btn-primary">Save</button>
+<% end %>

@@ -1,5 +1,5 @@
 class PlantsController < ApplicationController
-  before_action :set_plant, only: [:show, :edit, :update, :destroy]
+    before_action :set_plant, only: [:show, :edit, :update, :destroy, :detail]
 
   # GET /plants
   # GET /plants.json
@@ -60,6 +60,29 @@ class PlantsController < ApplicationController
       format.json { head :no_content }
     end
   end
+    
+    def detail
+        @details = []
+        criteria = Criterium.includes(:subcriteria)
+        criteria.each do |kriteria|
+            if kriteria.subcriteria.length > 0
+                sub = kriteria.subcriteria
+                sub.each do |subkriteria|
+                    @details.push({
+                        tipe: 'subcriteria', 
+                        id: subkriteria.id, 
+                        name: subkriteria.name, 
+                        value: 0
+                    })
+                end
+            else
+                @details.push({tipe: 'criteria', id: kriteria.id, name: kriteria.name, value: 0})
+            end
+        end
+    end
+    
+    def updatedetail
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.

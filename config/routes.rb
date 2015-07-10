@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     resources :subcriteria
   end
 
-  resources :plants
+    get  'plants/:id/detail' => 'plants#detail', as: :plant_detail
+    post 'plants/:id/detail' => 'plants#savedetail', as: :plant_save_detail
+    resources :plants
 
   resources :areas
 

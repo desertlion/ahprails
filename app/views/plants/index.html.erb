@@ -22,6 +22,7 @@
           <div class="btn-group">
             <%= link_to 'Show', plant, class: 'btn btn-mini btn-default' %>
             <%= link_to 'Edit', edit_plant_path(plant), class: 'btn btn-mini btn-default' %>
+              <%= link_to 'Detail',plant_detail_path(id: plant.id), class: 'btn btn-mini btn-default' %>
             <%= link_to 'Destroy', plant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %>
           </div>
         </td>
