@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710014330) do
+ActiveRecord::Schema.define(version: 20150723114904) do
+
+  create_table "area_details", force: :cascade do |t|
+    t.integer "area_id"
+    t.string  "name"
+    t.string  "detail"
+    t.string  "detail_type"
+    t.integer "detail_id"
+  end
+
+  add_index "area_details", ["area_id"], name: "index_area_detail_on_area_id"
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -24,6 +34,16 @@ ActiveRecord::Schema.define(version: 20150710014330) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float    "ahp"
+  end
+
+  create_table "plant_details", force: :cascade do |t|
+    t.integer  "plant_id"
+    t.string   "name"
+    t.string   "detail"
+    t.string   "detail_type"
+    t.integer  "detail_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "plants", force: :cascade do |t|

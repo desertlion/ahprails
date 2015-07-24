@@ -4,9 +4,9 @@
     <% @details.each do |detail| %>
     <div class="form-group">
         <label><%= detail[:name] %></label>
-        <input type="text" 
-            name="detail[<%=detail[:tipe]%>][<%=detail[:id]%>]" 
-            value="<%= detail[:value] %>" 
+        <input type="text"
+            name="detail[<%=detail[:tipe]%>][<%=detail[:id]%>]"
+            value="<%= detail[:value] %>"
             class="form-control" />
     </div>
     <% end %>

@@ -1,0 +1,107 @@
+<h1>Proses Penilaian GAP / Perhitungan per Parameter</h1>
+<% @gaps.each do |gap| %>
+<h3><%=gap[:name]%></h3>
+<div class="table-responsive">
+    <table class="table table-condensed table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Alternatif</th>
+                <th>Profile Ideal</th>
+                <th>Data Lahan</th>
+                <% if gap[:isUnstructured] == false && gap[:isRange] == false %>
+                    <th>Gap</th>
+                <% end %>
+                <% if gap[:isUnstructured] %>
+                    <th>AHP Ideal</th>
+                    <th>AHP Lahan</th>
+                    <th>GAP</th>
+                <% end %>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% gap[:plants].each do |plant| %>
+            <tr>
+                <td><%=plant[:name]%></td>
+                <td><%=plant[:profile]%></td>
+                <td><%=plant[:profilelahan]%></td>
+                <% if gap[:isUnstructured] == false && gap[:isRange] == false %>
+                    <td><%=plant[:gap]%></td>
+                <% end %>
+                <% if gap[:isUnstructured] %>
+                    <td><%=plant[:ahp]%></td>
+                    <td><%=plant[:ahplahan]%></td>
+                    <td><%=plant[:gap]%></td>
+                <% end %>
+                <td><%=plant[:score]%></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<% end %>
+<%
+# siapin untuk hitung criteria
+rangkings = {}
+%>
+<h2>Perhitungan Nilai Kriteria</h2>
+<div class="table-responsive">
+<% @criteria.each do |criterium| %>
+<h3><%=criterium.name%></h3>
+<table class="table table-condensed table-striped table-bordered">
+<thead>
+    <tr>
+        <% if criterium.subcriteria.length <= 0 then %>
+            <th>Parameter</th>
+            <th>Nilai Kriteria</th>
+        <% else %>
+            <th>Parameter</th>
+            <th>Bobot</th>
+            <% @plants.each do |plant| %>
+            <th><%=plant.name%></th>
+            <% end %>
+        <% end %>
+    </tr>
+</thead>
+<tbody>
+    <% if criterium.subcriteria.length > 0 then %>
+        <% sum = {} %>
+        <% criterium.subcriteria.each do |sub| %>
+        <tr>
+            <td><%=sub.name%></td>
+            <td><%=sub.ahp%></td>
+            <% @plants.each do |plant| %>
+            <td><%=@gapsScore[plant.name][sub.name].to_f * sub.ahp.to_f%></td>
+            <%
+            nilai = 0.0
+            nilai = @gapsScore[plant.name][sub.name].to_f * sub.ahp.to_f
+            if rangkings[criterium.name] == nil then rangkings[criterium.name] = {} end
+            rangkings[criterium.name][plant.name] = nilai
+            if sum[plant.name] == nil then sum[plant.name] = 0.0 end
+            sum[plant.name] = sum[plant.name] + nilai
+            %>
+            <% end %>
+        </tr>
+        <% end %>
+        <tr>
+            <td>NK</td>
+            <td></td>
+            <% @plants.each do |plant| %>
+            <td><%=sum[plant.name]%></td>
+            <% end %>
+        </tr>
+    <% else %>
+        <% @plants.each do |plant| %>
+        <tr>
+            <td><%=plant.name%></td>
+            <td><%=@gapsScore[plant.name]["Topografi"].to_f%></td>
+        </tr>
+        <% end %>
+    <% end %>
+</tbody>
+</table>
+<% end %>
+</div>
+</div>
+<h2>Perhitungan Nilai Total dan Perangkingan</h2>

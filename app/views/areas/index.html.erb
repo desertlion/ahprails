@@ -20,6 +20,7 @@
           <div class="btn-group">
             <%= link_to 'Show', area, class: 'btn btn-mini btn-primary' %>
             <%= link_to 'Edit', edit_area_path(area), class: 'btn btn-mini btn-primary' %>
+            <a href="<%=area_calculate_path(id: area.id)%>" class="btn btn-mini btn-primary">Calculate</a>
             <%= link_to 'Destroy', area, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %>
           </div>
         </td>
