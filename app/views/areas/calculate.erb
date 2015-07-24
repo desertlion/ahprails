@@ -44,6 +44,7 @@
 <%
 # siapin untuk hitung criteria
 rangkings = {}
+sum = {}
 %>
 <h2>Perhitungan Nilai Kriteria</h2>
 <div class="table-responsive">
@@ -66,7 +67,7 @@ rangkings = {}
 </thead>
 <tbody>
     <% if criterium.subcriteria.length > 0 then %>
-        <% sum = {} %>
+        <% if sum[criterium.name] == nil then sum[criterium.name] = {} end %>
         <% criterium.subcriteria.each do |sub| %>
         <tr>
             <td><%=sub.name%></td>
@@ -78,8 +79,8 @@ rangkings = {}
             nilai = @gapsScore[plant.name][sub.name].to_f * sub.ahp.to_f
             if rangkings[criterium.name] == nil then rangkings[criterium.name] = {} end
             rangkings[criterium.name][plant.name] = nilai
-            if sum[plant.name] == nil then sum[plant.name] = 0.0 end
-            sum[plant.name] = sum[plant.name] + nilai
+            if sum[criterium.name][plant.name] == nil then sum[criterium.name][plant.name] = 0.0 end
+            sum[criterium.name][plant.name] = sum[criterium.name][plant.name] + nilai
             %>
             <% end %>
         </tr>
@@ -88,7 +89,7 @@ rangkings = {}
             <td>NK</td>
             <td></td>
             <% @plants.each do |plant| %>
-            <td><%=sum[plant.name]%></td>
+            <td><%=sum[criterium.name][plant.name]%></td>
             <% end %>
         </tr>
     <% else %>
@@ -105,3 +106,44 @@ rangkings = {}
 </div>
 </div>
 <h2>Perhitungan Nilai Total dan Perangkingan</h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Kriteria</th>
+                <th>Bobot AHP</th>
+                <% @plants.each do |plant| %>
+                <th><%=plant.name%></th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <% sumrank = {} %>
+            <% @criteria.each do |criterium| %>
+            <tr>
+                <td><%=criterium.name%></td>
+                <td><%=criterium.ahp%></td>
+                <% @plants.each do |plant| %>
+                <%
+                if sumrank[plant.name] == nil then sumrank[plant.name] = 0.0 end
+                if sum[criterium.name] == nil
+                    nilai = @gapsScore[plant.name]["Topografi"].to_f
+                else
+                    nilai = sum[criterium.name][plant.name]
+                end
+                sumrank[plant.name] = sumrank[plant.name] + nilai
+                # sumrank[plant.name] = sumrank[plant.name] + sum[criterium.name][plant.name]
+                %>
+                <td><%=nilai%>
+                <% end %>
+            </tr>
+            <% end %>
+            <tr>
+                <th colspan="2">Jumlah</th>
+                <% @plants.each do |plant| %>
+                <td><%=sumrank[plant.name]%></td>
+                <% end %>
+            </tr>
+        </tbody>
+    </table>
+</div>
