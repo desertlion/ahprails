@@ -54,7 +54,7 @@ class AhpController < ApplicationController
         # Hitung subcriteria
         # buat array baru
         @subcriteria    = {};
-        
+
         # Mulai Hitung AHP untuk setiap sub kriteria
         # Khusus topografi tidak memiliki sub, jadi tidak dihitung
         @Criteria.each do |kriteria|
@@ -86,8 +86,8 @@ class AhpController < ApplicationController
                     @subcriteria[kriteria.id][:subsum][idx] = @subcriteria[kriteria.id][:subsum][idx].to_f + @subcriteria[kriteria.id][:nilai]["#{index}#{idx}"].to_f;
                     # Hitung produknya kemudian ambil akar pangkat 3 nya
                     @subcriteria[kriteria.id][:subsqrt3][index] = @subcriteria[kriteria.id][:subsqrt3][index].to_f * @subcriteria[kriteria.id][:nilai]["#{index}#{idx}"].to_f
-                    if idx == sub.length-1 then 
-                        @subcriteria[kriteria.id][:subsqrt3][index] = @subcriteria[kriteria.id][:subsqrt3][index]**(1.to_f/(sub.length).to_f).to_f 
+                    if idx == sub.length-1 then
+                        @subcriteria[kriteria.id][:subsqrt3][index] = @subcriteria[kriteria.id][:subsqrt3][index]**(1.to_f/(sub.length).to_f).to_f
                     end
                     # Jumlahkan secara menurun hasil dari sqrt
                 end
@@ -111,4 +111,6 @@ class AhpController < ApplicationController
 #            @cr = @ci / ir[@jlhkriteria];
         end
     end
+            def login
+            end
 end

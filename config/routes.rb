@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-    get 'testing/test' => 'plants#test'
+    get '/' => 'ahp#login'
+
     get 'unstructured_data/ahp'
     post 'unstructured_data/ahpcalculate'
     resources :unstructured_data
