@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name, 'Nama' %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :subcriterium_id %><br>
+    <%= f.label :subcriterium_id, 'Kriteria' %><br>
       <%= collection_select(:unstructured_datum, :subcriterium_id, Subcriterium.where(tipe: false), :id, :name) %>
     <%#= f.text_field :subcriterium_id %>
   </div>

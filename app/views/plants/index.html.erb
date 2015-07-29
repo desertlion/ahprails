@@ -2,13 +2,13 @@
 <p id="notice" class="alert alert-info"><%= notice %></p>
 <% end %>
 
-<h1>Listing Plants</h1>
+<h1>Daftar Tanaman</h1>
 
 <table class="table table-bordered table-condensed table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Action</th>
+      <th>Nama Tanaman</th>
+      <th>Aksi</th>
     </tr>
   </thead>
 
@@ -18,9 +18,9 @@
         <td><%= plant.name %></td>
         <td>
           <div class="btn-group">
-            <%= link_to 'Show', plant, class: 'btn btn-mini btn-default' %>
+            <%= link_to 'Lihat', plant, class: 'btn btn-mini btn-default' %>
             <%= link_to 'Edit', edit_plant_path(plant), class: 'btn btn-mini btn-default' %>
-            <%= link_to 'Destroy', plant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %>
+            <%= link_to 'Hapus', plant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %>
           </div>
         </td>
       </tr>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Plant', new_plant_path, class: 'btn btn-mini btn-primary btn-block btn-raised' %>
+<%= link_to 'Input Tanaman Baru', new_plant_path, class: 'btn btn-mini btn-primary btn-block btn-raised' %>

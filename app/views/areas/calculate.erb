@@ -127,9 +127,9 @@ sum = {}
                 <%
                 if sumrank[plant.name] == nil then sumrank[plant.name] = 0.0 end
                 if sum[criterium.name] == nil
-                    nilai = @gapsScore[plant.name]["Topografi"].to_f
+                    nilai = @gapsScore[plant.name]["Topografi"].to_f * criterium.ahp
                 else
-                    nilai = sum[criterium.name][plant.name]
+                    nilai = sum[criterium.name][plant.name] * criterium.ahp
                 end
                 sumrank[plant.name] = sumrank[plant.name] + nilai
                 # sumrank[plant.name] = sumrank[plant.name] + sum[criterium.name][plant.name]
@@ -140,10 +140,19 @@ sum = {}
             <% end %>
             <tr>
                 <th colspan="2">Jumlah</th>
+                <% rank = {} %>
                 <% @plants.each do |plant| %>
+                <% rank[plant.name] = sumrank[plant.name] %>
                 <td><%=sumrank[plant.name]%></td>
                 <% end %>
             </tr>
         </tbody>
     </table>
 </div>
+<h2>Rangking</h2>
+<%rank = rank.sort_by {|_key, value| value<=>_key}.to_h%>
+<ul>
+    <% rank.each do |k,v| %>
+    <li><%="#{k}"%></li>
+    <% end %>
+</ul>
