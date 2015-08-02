@@ -1,4 +1,4 @@
-<h1>AHP Criteria Calculation</h1>
+<h1>Perhitungan AHP Kriteria</h1>
 
 <%= form_tag(ahp_calculate_path) do |f|  %>
     <table class="table table-condensed table-bordered table-striped">
@@ -28,7 +28,7 @@
     </tbody>
     </table>
     <hr>
-    <h2>AHP Sub Criteria Calculation</h2>
+    <h2>Perhitungan AHP Sub Kriteria</h2>
     <%
     @criteria.each do |criterium|
         if ( criterium.subcriteria.length > 0 ) %>
@@ -64,5 +64,5 @@
         end
     end
     %>
-    <button class="btn btn-block btn-primary">Calculate Weight</button>
+    <button class="btn btn-block btn-primary">Hitung AHP</button>
 <% end %>

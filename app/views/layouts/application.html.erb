@@ -19,11 +19,14 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li class="<%= params[:controller] == 'areas' ? 'active' : '' %>"><%= link_to 'Areas', areas_path %></li>
-            <li class="<%= params[:controller] == 'plants' ? 'active' : '' %>"><%= link_to 'Plants', plants_path %></li>
+            <% if user_signed_in? %>
+            <li class="<%= params[:controller] == 'areas' ? 'active' : '' %>"><%= link_to 'Lahan', areas_path %></li>
+            <li class="<%= params[:controller] == 'plants' ? 'active' : '' %>"><%= link_to 'Tanaman', plants_path %></li>
             <li class="<%= params[:controller] == 'criteria' ? 'active' : '' %>"><%= link_to 'Criteria', criteria_path %></li>
-            <li class="<%= params[:controller] == 'unstructured_data' ? 'active' : '' %>"><%= link_to 'Unstructured Data', unstructured_data_path %></li>
-            <li class="<%= params[:controller] == 'ahp' ? 'active' : '' %>"><%= link_to 'Ahp', ahp_criteria_path %></li>
+            <li class="<%= params[:controller] == 'unstructured_data' ? 'active' : '' %>"><%= link_to 'Data Tak Terstruktur', unstructured_data_path %></li>
+            <li class="<%= params[:controller] == 'ahp' ? 'active' : '' %>"><%= link_to 'AHP', ahp_criteria_path %></li>
+            <li><%= link_to 'Logout', destroy_user_session_path, method: 'DELETE' %></li>
+            <% end %>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control col-lg-8" placeholder="Search">

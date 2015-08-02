@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-    get '/' => 'ahp#login'
+    devise_for :users
+    scope "/admin" do
+      resources :users
+    end
+  resources :roles
+
+    root to: 'areas#index'
 
     get 'unstructured_data/ahp'
     post 'unstructured_data/ahpcalculate'

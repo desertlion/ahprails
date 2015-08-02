@@ -1,6 +1,7 @@
 class AreasController < ApplicationController
     before_action :set_area, only: [:show, :edit, :update, :destroy]
     before_action :set_detail, only: [:new, :edit, :create, :update, :calculate]
+    before_filter :authenticate_user!
 
     # GET /areas
     # GET /areas.json
@@ -129,8 +130,9 @@ class AreasController < ApplicationController
                 else
                     if detail[:tipe] == 'unstructured' then
                         planttemp[:ahp] = @ahpUD.where("lower(name) = ?", planttemp[:profile].downcase).first[:ahp]
-                        planttemp[:gap] = data[:ahplahan].to_f - planttemp[:ahp].to_f
+                        # planttemp[:gap] = planttemp[:ahp].to_f - data[:ahplahan].to_f
                         planttemp[:ahplahan] = @ahpUD.where("lower(name) = ?", planttemp[:profilelahan].downcase).first[:ahp]
+                        planttemp[:gap] = planttemp[:ahplahan].to_f - planttemp[:ahp].to_f
                         planttemp[:score] = countScoreFromGapUD(planttemp[:gap])
                     else
                         # bukan unstructured
@@ -165,7 +167,7 @@ class AreasController < ApplicationController
                     angkaatas = angkaatas + 10
                     atas = atas - 1.0
                     if ( gap > n && n < 1 ) then
-                        return (( 11.5 - 10 )  / ( 10 - 0 ) * ( gap ) + 10.5 ).to_f
+                        return (( 11 - 10.5 )  / ( 0 - 10 ) * ( gap - 10 ) + 10.5 ).to_f
                     elsif gap > n && n > 0 then
                         return ((bobotsebelum.to_f - atas) / (n - gapsebelum.to_f) * (gap.to_f - gapsebelum.to_f) + atas).to_f
                     end
@@ -173,21 +175,22 @@ class AreasController < ApplicationController
                     bobotsebelum = atas
                 end
             else
-                atas = 11
-                angkaatas = -110
-                (1..11).each do |n|
-                    if n == 11
-                        return (( 11.5 - 10 )  / ( 10 - 0 ) * ( gap ) + 10.5 ).to_f
-                    else
-                        if ( gap > angkaatas && n < 1 ) then
-                            return (( 11.5 - 10 )  / ( 10 - 0 ) * ( gap ) + 10.5 ).to_f
-                        elsif gap > angkaatas && n > 0 then
-                            return ((bobotsebelum.to_f - atas) / (n - gapsebelum.to_f) * (gap.to_f - gapsebelum.to_f) + atas).to_f
-                        end
-                        angkaatas = angkaatas + 10
-                        atas = atas - 1.0
+                # batas akhir
+                atas = 12.0
+                angkaatas = 10
+                11.downto(1).each do |n|
+                    if gap == 0 then return 11 end
+                    angkaatas = angkaatas - 10
+                    atas      = angkaatas - 1
+
+                    if ( gap > angkaatas && n >= 10 ) then
+                        # return gap
+                        return (( 11.0 - 10.0 )  / ( 0.0 - (-10.0) ) * ( gap - (-10.0) ) + 10.0 ).to_f
+                    elsif gap > angkaatas && n < 10 then
+                        return ((bobotsebelum.to_f - atas) / (n - gapsebelum.to_f) * (gap.to_f - gapsebelum.to_f) + atas).to_f
                     end
-                    gapsebelum = angkaatas
+
+                    gapsebelum   = angkaatas
                     bobotsebelum = atas
                 end
             end
@@ -275,10 +278,10 @@ class AreasController < ApplicationController
             x1              = (x > x1temp) ? ( kiri.to_f + kiri.to_f) : x1temp
             bawah           = ( x1 - kanan.to_f ).to_f
             kanan1          = x - kanan
-#             return "#{atas} / #{bawah} * ( #{x} - #{kanan} = #{kanan1}) + #{kanan2}, x1 = #{x1}"
+            # return "#{atas} / #{bawah} * ( #{x} - #{kanan} = #{kanan1}) + #{kanan2}, x1 = #{x1}"
         end
-            score = ( (atas / bawah).to_f * kanan1.to_f ) + kanan2.to_f
-            return score.to_f
+        score = ( (atas / bawah).to_f * kanan1.to_f ) + kanan2.to_f
+        return score.to_f
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_area

@@ -2,14 +2,14 @@
 <p id="notice" class="alert alert-info"><%= notice %></p>
 <% end %>
 
-<h1>Listing Subcriteria</h1>
+<h1>Daftar Sub Kriteria</h1>
 
-<table class="table table-condensed table-bordered table-striped"">
+<table class="table table-condensed table-bordered table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Criteria</th>
-      <th>Data Type</th>
+      <th>Sub Kriteria</th>
+      <th>Kriteria</th>
+      <th>Tipe Data</th>
       <th></th>
     </tr>
   </thead>
@@ -34,5 +34,5 @@
 
 <br>
 
-<%= link_to 'New Subcriterium', new_criterium_subcriterium_path(@criterium_id), class: 'btn btn-primary btn-block' %>
-<%= link_to 'Back to Criterium', criteria_path, class: 'btn btn-primary btn-block' %>
+<%= link_to 'Input Kriteria Baru', new_criterium_subcriterium_path(@criterium_id), class: 'btn btn-primary btn-block' %>
+<%= link_to 'Kembali ke Kriteria', criteria_path, class: 'btn btn-primary btn-block' %>
