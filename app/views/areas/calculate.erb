@@ -150,7 +150,8 @@ sum = {}
     </table>
 </div>
 <h2>Rangking</h2>
-<%rank = rank.sort_by {|_key, value| value<=>_key}.to_h%>
+<%rank = rank.sort_by {|_key, value| value}.reverse.to_h%>
+    <%#=rank.to_json%>
 <ul>
     <% rank.each do |k,v| %>
     <li><%="#{k}"%></li>

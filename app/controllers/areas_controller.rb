@@ -278,10 +278,10 @@ class AreasController < ApplicationController
             x1              = (x > x1temp) ? ( kiri.to_f + kiri.to_f) : x1temp
             bawah           = ( x1 - kanan.to_f ).to_f
             kanan1          = x - kanan
-#             return "#{atas} / #{bawah} * ( #{x} - #{kanan} = #{kanan1}) + #{kanan2}, x1 = #{x1}"
+            # return "#{atas} / #{bawah} * ( #{x} - #{kanan} = #{kanan1}) + #{kanan2}, x1 = #{x1}"
         end
-            score = ( (atas / bawah).to_f * kanan1.to_f ) + kanan2.to_f
-            return score.to_f
+        score = ( (atas / bawah).to_f * kanan1.to_f ) + kanan2.to_f
+        return score.to_f
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_area
