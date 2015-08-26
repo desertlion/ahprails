@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nama:</strong>
+  <%= @belajar.nama %>
+</p>
+
+<p>
+  <strong>Ruang:</strong>
+  <%= @belajar.ruang %>
+</p>
+
+<%= link_to 'Edit', edit_belajar_path(@belajar) %> |
+<%= link_to 'Back', belajars_path %>

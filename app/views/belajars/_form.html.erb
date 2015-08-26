@@ -1,0 +1,25 @@
+<%= form_for(@belajar) do |f| %>
+  <% if @belajar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@belajar.errors.count, "error") %> prohibited this belajar from being saved:</h2>
+
+      <ul>
+      <% @belajar.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nama %><br>
+    <%= f.text_field :nama %>
+  </div>
+  <div class="field">
+    <%= f.label :ruang %><br>
+    <%= f.text_field :ruang %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
