@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :absens
+
     devise_for :users
     scope "/admin" do
       resources :users

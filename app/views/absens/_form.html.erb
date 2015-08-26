@@ -1,0 +1,29 @@
+<%= form_for(@absen) do |f| %>
+  <% if @absen.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@absen.errors.count, "error") %> prohibited this absen from being saved:</h2>
+
+      <ul>
+      <% @absen.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nama %><br>
+    <%= f.text_field :nama %>
+  </div>
+  <div class="field">
+    <%= f.label :alamat %><br>
+    <%= f.text_field :alamat %>
+  </div>
+  <div class="field">
+    <%= f.label :nim %><br>
+    <%= f.number_field :nim %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

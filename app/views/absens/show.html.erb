@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nama:</strong>
+  <%= @absen.nama %>
+</p>
+
+<p>
+  <strong>Alamat:</strong>
+  <%= @absen.alamat %>
+</p>
+
+<p>
+  <strong>Nim:</strong>
+  <%= @absen.nim %>
+</p>
+
+<%= link_to 'Edit', edit_absen_path(@absen) %> |
+<%= link_to 'Back', absens_path %>
