@@ -18,10 +18,13 @@
         <td><%= area.name %></td>
         <td>
           <div class="btn-group">
+              <% if current_user.role.id ==3 %>
+                <a href="<%=area_calculate_path(id: area.id)%>" class="btn btn-mini btn-primary">Cek Rekomendasi</a>
+              <% else %>
             <%= link_to 'Lihat', area, class: 'btn btn-mini btn-primary' %>
             <%= link_to 'Edit', edit_area_path(area), class: 'btn btn-mini btn-primary' %>
-            <a href="<%=area_calculate_path(id: area.id)%>" class="btn btn-mini btn-primary">Cek Rekomendasi</a>
             <%= link_to 'Hapus', area, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %>
+              <% end %>
           </div>
         </td>
       </tr>
@@ -30,5 +33,6 @@
 </table>
 
 <br>
-
+<% if current_user.role.id != 3 %>
 <%= link_to 'Buat Lahan Baru', new_area_path, class: 'btn btn-primary btn-block' %>
+<% end %>

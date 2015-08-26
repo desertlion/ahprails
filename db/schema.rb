@@ -13,14 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150813130145) do
 
-  create_table "absens", force: :cascade do |t|
-    t.string   "nama"
-    t.string   "alamat"
-    t.integer  "nim"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "area_details", force: :cascade do |t|
     t.integer "area_id"
     t.string  "name"
@@ -33,6 +25,13 @@ ActiveRecord::Schema.define(version: 20150813130145) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "belajars", force: :cascade do |t|
+    t.string   "nama"
+    t.string   "ruang"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

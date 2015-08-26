@@ -21,10 +21,13 @@
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
             <li class="<%= params[:controller] == 'areas' ? 'active' : '' %>"><%= link_to 'Lahan', areas_path %></li>
+            <% if current_user.role.id != 3 %>
             <li class="<%= params[:controller] == 'plants' ? 'active' : '' %>"><%= link_to 'Tanaman', plants_path %></li>
             <li class="<%= params[:controller] == 'criteria' ? 'active' : '' %>"><%= link_to 'Criteria', criteria_path %></li>
-            <li class="<%= params[:controller] == 'unstructured_data' ? 'active' : '' %>"><%= link_to 'Data Tak Terstruktur', unstructured_data_path %></li>
+            <% else %>
             <li class="<%= params[:controller] == 'ahp' ? 'active' : '' %>"><%= link_to 'AHP', ahp_criteria_path %></li>
+            <% end %>
+            <li class="<%= params[:controller] == 'unstructured_data' ? 'active' : '' %>"><%= link_to 'Data Tak Terstruktur', unstructured_data_path %></li>
             <li><%= link_to 'Logout', destroy_user_session_path, method: 'DELETE' %></li>
             <% end %>
           </ul>
@@ -35,7 +38,7 @@
       </div>
       <div class="container-fluid">
         <%= yield %>
-        <%= debug(params) if Rails.env.development? %>
+        <%#= debug(params) if Rails.env.development? %>
       </div>
     </div>
   </body>

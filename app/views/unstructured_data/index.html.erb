@@ -1,29 +1,37 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Daftar Data Tak Terstruktur</h1>
+<% if current_user.role.id == 3 %>
 <a href="<%= unstructured_data_ahp_path %>" class="btn btn-blockk btn-primary">Hitung AHP</a>
+<% end %>
 <table class="table table-condensed table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>SubKriteria</th>
-      <th colspan="3">Aksi</th>
-    </tr>
-  </thead>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>SubKriteria</th>
+            <% if current_user.role.id != 3 %>
+            <th colspan="3">Aksi</th>
+            <% end %>
+        </tr>
+    </thead>
 
-  <tbody>
-    <% @unstructured_data.each do |unstructured_datum| %>
-      <tr>
-        <td><%= unstructured_datum.name %></td>
-          <td><%= unstructured_datum.subcriterium.name %></td>
-        <td><%= link_to 'Show', unstructured_datum %></td>
-        <td><%= link_to 'Edit', edit_unstructured_datum_path(unstructured_datum) %></td>
-        <td><%= link_to 'Destroy', unstructured_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+    <tbody>
+        <% @unstructured_data.each do |unstructured_datum| %>
+        <tr>
+            <td><%= unstructured_datum.name %></td>
+            <td><%= unstructured_datum.subcriterium.name %></td>
+            <% if current_user.role.id != 3 %>
+            <td><%= link_to 'Show', unstructured_datum %></td>
+            <td><%= link_to 'Edit', edit_unstructured_datum_path(unstructured_datum) %></td>
+            <td><%= link_to 'Destroy', unstructured_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+        </tr>
+        <% end %>
+    </tbody>
 </table>
 
 <br>
 
+<% if current_user.role.id != 3 %>
 <%= link_to 'Input Data Tak Terstruktur Baru', new_unstructured_datum_path, class: 'btn btn-block btn-primary' %>
+<% end %>
